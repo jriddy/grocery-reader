@@ -12,12 +12,20 @@ def parse_ingredients(ingredient_str, pat=_split_pat):
     return (pat.split(ingredient_str) + [None])[:2]
 
 
-def make_list(recipes):
+def format_with_recipe(item, amt, recipe):
+    return [1 if amt is None else amt, recipe]
+
+
+def format_amount(item, amt, recipe):
+    return 'some' if amt is None else amt
+
+
+def make_list(recipes, fmtf=format_amount):
     dd = defaultdict(list)
     for k, vs in recipes.items():
         for v in vs:
             item, amt = parse_ingredients(v)
-            dd[item].append(amt)
+            dd[item].append(fmtf(item, amt, k))
     return dd
 
 
