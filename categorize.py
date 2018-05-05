@@ -6,7 +6,7 @@ from collections import defaultdict
 import yaml
 
 
-_split_pat = re.compile(r'\s+\*\s+')
+_split_pat = re.compile(r'\s*(?<!\\)\*\s*')
 
 def parse_ingredients(ingredient_str, pat=_split_pat):
     return (pat.split(ingredient_str) + [None])[:2]
